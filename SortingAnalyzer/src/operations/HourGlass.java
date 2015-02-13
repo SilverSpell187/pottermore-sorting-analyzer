@@ -1,5 +1,8 @@
 package operations;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import variables.*;
 import variables.auxs.*;
 
@@ -38,7 +41,7 @@ public class HourGlass {
     }
     /**
      * Adds all weights given by an Answer to each House counter within this
-     * object.
+     * object. Currently Q7 multiplys its value.
      * 
      * @param Answer Answer to be weighted.
      */
@@ -87,6 +90,58 @@ public class HourGlass {
                 this.slytherin.multiplyPoints(a.getSlytherinWeight());
                 break;
         }
+    }
+    
+    /**
+     * Does the "Sorting", ordering all House scores.
+     * @return Gems[] Array containing the associated scores ordered.
+     */
+    private Gems[] getSortingDone() {
+        Gems[] scores = new Gems[4];
+        scores[0] = this.gryffindor;
+        scores[1] = this.ravenclaw;
+        scores[2] = this.hufflepuff;
+        scores[3] = this.slytherin;
+        Arrays.sort(scores);
+        return scores;
+    }
+    /**
+     * Helps identify Hatstalls by comparing the first (highest) associated
+     * score with the second one.
+     * @param Gems[] Array containing the ordered associated scores of this object.
+     * @return Returns true if the first highest and second highest scores are
+     * of equal value and therefore there's a Hatstall.
+     */
+    private static boolean isHatstall(Gems[] scores) {
+        boolean isHatstall = false;
+        if(scores[0].equals(scores[1])) {
+            isHatstall = true;
+        }
+        return isHatstall;
+    }
+    /**
+     * 
+     */
+    public House getSorted() {
+        House house = null;
+        Gems[] scores = this.getSortingDone();
+        if(isHatstall(scores)) {
+            house = House.HATSTALL;
+        } else {
+            if(scores[0] instanceof Rubys) {
+                house = ((Rubys)scores[0]).getHouse();
+            }
+            if(scores[0] instanceof Diamonds) {
+                house = ((Diamonds)scores[0]).getHouse();
+            }
+            if(scores[0] instanceof Emeralds) {
+                house = ((Emeralds)scores[0]).getHouse();
+            }
+            if(scores[0] instanceof Shappires) {
+                house = ((Shappires)scores[0]).getHouse();
+            }
+        }
+        return house;
     }
     
     /**

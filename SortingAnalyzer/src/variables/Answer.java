@@ -39,13 +39,22 @@ public class Answer extends QuizItem {
      * @param Shappires Weight given by this object to Raveclaw House.
      * @param Rubys Weight given by this object to Gryffindor House.
      */
-    Answer(int id, TipoR answer, Diamonds h, Emeralds s, Shappires r, Rubys g) {
+    public Answer(int id, TipoR answer, Diamonds h, Emeralds s, Shappires r, Rubys g) {
         super(id, answer.getOpcion());
         this.answer = answer;
         this.puff = h;
         this.sly = s;
         this.claw = r;
         this.gryf = g;
+    }
+    /**
+     * Constructor.
+     * @param id Unique number identifier of this particular Quiz item.
+     * @param TipoR Unique answer identifier, containing its shortened text.
+     */
+    public Answer(int id, TipoR answer) {
+        super(id, answer.getOpcion());
+        this.answer = answer;
     }
     
     /**
@@ -92,5 +101,48 @@ public class Answer extends QuizItem {
      */
     public int getPlaceWithinQuiz() {
         return this.answer.getQuestionType().getOrder();
+    }
+    
+    /**
+     * Sets the relative Weight given by this Object-Answer to Gryffindor.
+     * @param double Weight given by this Answer to Gryffindor House.
+     */
+    public void setGryffindorWeight(double sc) {
+        this.gryf.setValue(sc);
+    }
+    /**
+     * Sets the relative Weight given by this Object-Answer to Hufflepuff.
+     * @param double Weight given by this Answer to Hufflepuff House.
+     */
+    public void setHufflepuffWeight(double sc) {
+        this.puff.setValue(sc);
+    }
+    /**
+     * Sets the relative Weight given by this Object-Answer to Ravenclaw.
+     * @param double Weight given by this Answer to Ravenclaw House.
+     */
+    public void setRavenclawWeight(double sc) {
+        this.claw.setValue(sc);
+    }
+    /**
+     * Sets the relative Weight given by this Object-Answer to Slytherin.
+     * @param double Weight given by this Answer to Slytherin House.
+     */
+    public void setSlytherinWeight(double sc) {
+        this.sly.setValue(sc);
+    }
+    
+    /**
+     * Returns a description of this Answer object, containing the shortened
+     * version of Answer text and the Weights given by it to each House.
+     * @return Answer description, weights included.
+     */
+    @Override
+    public String toString() {
+        return this.getAnswerText() + "\t" +
+                "G/" + this.getGryffindorWeight() + "\t" +
+                "R/" + this.getRavenclawWeight() + "\t" +
+                "H/" + this.getHufflepuffWeight() + "\t" +
+                "S/" + this.getSlytherinWeight() + "\n";
     }
 }
