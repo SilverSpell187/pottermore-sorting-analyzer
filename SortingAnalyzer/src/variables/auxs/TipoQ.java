@@ -141,7 +141,7 @@ public enum TipoQ {
      * Returns a short version of the question text.
      * @return String Shortened question text.
      */
-    public String getQuestionID() {
+    public String getQuestionTag() {
         return this.opcion;
     }
     /**

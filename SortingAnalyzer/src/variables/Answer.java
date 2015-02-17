@@ -1,6 +1,5 @@
 package variables;
 
-import variables.auxs.QuizItem;
 import variables.auxs.TipoR;
 
 /**
@@ -8,7 +7,7 @@ import variables.auxs.TipoR;
  * @version 1.0
  * @since 2015-02-11
  */
-public class Answer extends QuizItem {
+public class Answer {
     /**
      * Contains the Score (Weight) given by this object to Hufflepuff House.
      */
@@ -26,7 +25,7 @@ public class Answer extends QuizItem {
      */
     private Rubys gryf;
     /**
-     * Contains a unique answer identifier which includes its text.
+     * Contains a unique enum type (answer) identifier which includes its text.
      */
     private TipoR answer;
     
@@ -39,8 +38,7 @@ public class Answer extends QuizItem {
      * @param Shappires Weight given by this object to Raveclaw House.
      * @param Rubys Weight given by this object to Gryffindor House.
      */
-    public Answer(int id, TipoR answer, Diamonds h, Emeralds s, Shappires r, Rubys g) {
-        super(id, answer.getOpcion());
+    public Answer(TipoR answer, Diamonds h, Emeralds s, Shappires r, Rubys g) {
         this.answer = answer;
         this.puff = h;
         this.sly = s;
@@ -48,12 +46,11 @@ public class Answer extends QuizItem {
         this.gryf = g;
     }
     /**
-     * Constructor.
+     * Constructor. Sets up an Answer object with no weigths.
      * @param id Unique number identifier of this particular Quiz item.
      * @param TipoR Unique answer identifier, containing its shortened text.
      */
-    public Answer(int id, TipoR answer) {
-        super(id, answer.getOpcion());
+    public Answer(TipoR answer) {
         this.answer = answer;
     }
     
@@ -91,6 +88,13 @@ public class Answer extends QuizItem {
      */
     public String getAnswerText() {
         return this.answer.getOpcion();
+    }
+    /**
+     * Returns the enum type corresponding to this Answer object.
+     * @return TipoR enum constant associated with this object.
+     */
+    public TipoR getAnswerType() {
+        return this.answer;
     }
     /**
      * Returns an integer representing the order (place) in which the Question to
@@ -139,10 +143,10 @@ public class Answer extends QuizItem {
      */
     @Override
     public String toString() {
-        return this.getAnswerText() + "\t" +
-                "G/" + this.getGryffindorWeight() + "\t" +
+        return "G/" + this.getGryffindorWeight() + "\t" +
                 "R/" + this.getRavenclawWeight() + "\t" +
                 "H/" + this.getHufflepuffWeight() + "\t" +
-                "S/" + this.getSlytherinWeight() + "\n";
+                "S/" + this.getSlytherinWeight() + "\t" +
+                " -> " + this.getAnswerText();
     }
 }

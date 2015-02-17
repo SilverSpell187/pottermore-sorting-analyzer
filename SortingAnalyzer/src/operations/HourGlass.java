@@ -1,8 +1,6 @@
 package operations;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import variables.*;
 import variables.auxs.*;
 
@@ -48,46 +46,46 @@ public class HourGlass {
     public void weightAnswer(Answer a) {
         switch (a.getPlaceWithinQuiz()) {
             case 1:
-                this.gryffindor.addPoints(a.getGryffindorWeight());
-                this.hufflepuff.addPoints(a.getHufflepuffWeight());
-                this.ravenclaw.addPoints(a.getRavenclawWeight());
-                this.slytherin.addPoints(a.getSlytherinWeight());
+                this.gryffindor.add(a.getGryffindorWeight());
+                this.hufflepuff.add(a.getHufflepuffWeight());
+                this.ravenclaw.add(a.getRavenclawWeight());
+                this.slytherin.add(a.getSlytherinWeight());
                 break;
             case 2:
-                this.gryffindor.addPoints(a.getGryffindorWeight());
-                this.hufflepuff.addPoints(a.getHufflepuffWeight());
-                this.ravenclaw.addPoints(a.getRavenclawWeight());
-                this.slytherin.addPoints(a.getSlytherinWeight());
+                this.gryffindor.add(a.getGryffindorWeight());
+                this.hufflepuff.add(a.getHufflepuffWeight());
+                this.ravenclaw.add(a.getRavenclawWeight());
+                this.slytherin.add(a.getSlytherinWeight());
                 break;
             case 3:
-                this.gryffindor.addPoints(a.getGryffindorWeight());
-                this.hufflepuff.addPoints(a.getHufflepuffWeight());
-                this.ravenclaw.addPoints(a.getRavenclawWeight());
-                this.slytherin.addPoints(a.getSlytherinWeight());
+                this.gryffindor.add(a.getGryffindorWeight());
+                this.hufflepuff.add(a.getHufflepuffWeight());
+                this.ravenclaw.add(a.getRavenclawWeight());
+                this.slytherin.add(a.getSlytherinWeight());
                 break;
             case 4:
-                this.gryffindor.addPoints(a.getGryffindorWeight());
-                this.hufflepuff.addPoints(a.getHufflepuffWeight());
-                this.ravenclaw.addPoints(a.getRavenclawWeight());
-                this.slytherin.addPoints(a.getSlytherinWeight());
+                this.gryffindor.add(a.getGryffindorWeight());
+                this.hufflepuff.add(a.getHufflepuffWeight());
+                this.ravenclaw.add(a.getRavenclawWeight());
+                this.slytherin.add(a.getSlytherinWeight());
                 break;
             case 5:
-                this.gryffindor.addPoints(a.getGryffindorWeight());
-                this.hufflepuff.addPoints(a.getHufflepuffWeight());
-                this.ravenclaw.addPoints(a.getRavenclawWeight());
-                this.slytherin.addPoints(a.getSlytherinWeight());
+                this.gryffindor.add(a.getGryffindorWeight());
+                this.hufflepuff.add(a.getHufflepuffWeight());
+                this.ravenclaw.add(a.getRavenclawWeight());
+                this.slytherin.add(a.getSlytherinWeight());
                 break;
             case 6:
-                this.gryffindor.addPoints(a.getGryffindorWeight());
-                this.hufflepuff.addPoints(a.getHufflepuffWeight());
-                this.ravenclaw.addPoints(a.getRavenclawWeight());
-                this.slytherin.addPoints(a.getSlytherinWeight());
+                this.gryffindor.add(a.getGryffindorWeight());
+                this.hufflepuff.add(a.getHufflepuffWeight());
+                this.ravenclaw.add(a.getRavenclawWeight());
+                this.slytherin.add(a.getSlytherinWeight());
                 break;
             case 7:
-                this.gryffindor.multiplyPoints(a.getGryffindorWeight());
-                this.hufflepuff.multiplyPoints(a.getHufflepuffWeight());
-                this.ravenclaw.multiplyPoints(a.getRavenclawWeight());
-                this.slytherin.multiplyPoints(a.getSlytherinWeight());
+                this.gryffindor.multiplyBy(a.getGryffindorWeight());
+                this.hufflepuff.multiplyBy(a.getHufflepuffWeight());
+                this.ravenclaw.multiplyBy(a.getRavenclawWeight());
+                this.slytherin.multiplyBy(a.getSlytherinWeight());
                 break;
         }
     }
@@ -120,7 +118,10 @@ public class HourGlass {
         return isHatstall;
     }
     /**
-     * 
+     * Runs the getSortingDone method and selects the House with the highest
+     * score to return; in case a Hatstall occurred, it returns the correspondent
+     * enum type value.
+     * @return House with the highest score, once ordered or Hatstall if appropiate.
      */
     public House getSorted() {
         House house = null;
@@ -149,20 +150,29 @@ public class HourGlass {
      * that might be (this method uses the instanceof operator).
      * @param Gems Score object associated to a particular House.
      * @deprecated Possibly not useful.
-     * @see Gems addPoints()
+     * @see Gems add()
      */
     private void addScore(Gems sc) {
         if(sc instanceof Rubys) {
-            this.gryffindor.addPoints(sc.getValue());
+            this.gryffindor.add(sc.getValue());
         }
         if(sc instanceof Diamonds) {
-            this.hufflepuff.addPoints(sc.getValue());
+            this.hufflepuff.add(sc.getValue());
         }
         if(sc instanceof Emeralds) {
-            this.slytherin.addPoints(sc.getValue());
+            this.slytherin.add(sc.getValue());
         }
         if(sc instanceof Shappires) {
-            this.ravenclaw.addPoints(sc.getValue());
+            this.ravenclaw.add(sc.getValue());
         }
     }
+    
+    @Override
+    public String toString() {
+        return "G/" + this.gryffindor.getValue() + "\t" +
+                "R/" + this.ravenclaw.getValue() + "\t" +
+                "H/" + this.hufflepuff.getValue() + "\t" +
+                "S/" + this.slytherin.getValue() + "\t";
+    }
+        
 }

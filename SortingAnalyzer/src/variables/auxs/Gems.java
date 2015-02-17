@@ -47,7 +47,7 @@ public abstract class Gems implements Comparable<Gems> {
      *
      * @param double Numerical weight (score) added.
      */
-    public void addPoints(double sc) {
+    public void add(double sc) {
         this.puntos += sc;
     }
     /**
@@ -55,7 +55,7 @@ public abstract class Gems implements Comparable<Gems> {
      *
      * @param double Numerical weight (score) taken.
      */
-    public void takePoints(double sc) {
+    public void take(double sc) {
         this.puntos -= sc;
     }
     /**
@@ -64,7 +64,7 @@ public abstract class Gems implements Comparable<Gems> {
      * @param double Numerical weight to which this object's counter is to be
      * multiplied.
      */
-    public void multiplyPoints(double sc) {
+    public void multiplyBy(double sc) {
         this.puntos = this.puntos*sc;
     }
 
