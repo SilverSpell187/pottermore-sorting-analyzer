@@ -48,6 +48,35 @@ public class SortingQuiz {
     }
     
     /**
+     * Assigns a new numerical value to the Weight given by an Answer object to
+     * the specified House.
+     * @param Answer Answer to be reviewd and updated.
+     * @param House House whose weighting is to be updated.
+     * @param double New value that should be given to the updated weight.
+     * @return True if an update has succesfully been performed, false otherwise.
+     */
+    public boolean setNewWeighting(TipoR a, House h, double sc) {
+        boolean changeCorrect = false;
+        if (h.equals(House.G)) {
+            this.answers.get(a).setGryffindorWeight(sc);
+            changeCorrect = true;
+        }
+        if (h.equals(House.R)) {
+            this.answers.get(a).setRavenclawWeight(sc);
+            changeCorrect = true;
+        }
+        if (h.equals(House.H)) {
+            this.answers.get(a).setHufflepuffWeight(sc);
+            changeCorrect = true;
+        }
+        if (h.equals(House.S)) {
+            this.answers.get(a).setSlytherinWeight(sc);
+            changeCorrect = true;
+        }
+        return changeCorrect;
+    }
+    
+    /**
      * Prints a summary of all weights given by every Answer contained within
      * this Quiz object (Scoring Method).
      */

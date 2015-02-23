@@ -5,6 +5,12 @@ import variables.*;
 import variables.auxs.*;
 
 /**
+ * This Class is designed to represent the Scores or Weight values corresponding
+ * to each individual answer as well as those belonging to particular subjects
+ * (as SortingSamples), so it contains the variables related to each House and
+ * methods for doing all related maths (using, in most cases, those contained
+ * within the Gems superclass).
+ * @see Gems
  * @author SilverSpell187
  * @version 1.0
  * @since 2015-02-11
@@ -26,6 +32,16 @@ public class HourGlass {
      * Contains the Score given by this object to Slytherin.
      */
     private Emeralds slytherin;
+    
+    /**
+     * Constructor.
+     */
+    public HourGlass() {
+        this.gryffindor = new Rubys(0);
+        this.ravenclaw = new Shappires(0);
+        this.hufflepuff = new Diamonds(0);
+        this.slytherin = new Emeralds(0);
+    }
     
     /**
      * Deletes all numerical values within this object, setting all House
@@ -112,7 +128,7 @@ public class HourGlass {
      */
     private static boolean isHatstall(Gems[] scores) {
         boolean isHatstall = false;
-        if(scores[0].equals(scores[1])) {
+        if(scores[3].getValue() == scores[2].getValue()) {
             isHatstall = true;
         }
         return isHatstall;
@@ -129,17 +145,17 @@ public class HourGlass {
         if(isHatstall(scores)) {
             house = House.HATSTALL;
         } else {
-            if(scores[0] instanceof Rubys) {
-                house = ((Rubys)scores[0]).getHouse();
+            if(scores[3] instanceof Rubys) {
+                house = ((Rubys)scores[3]).getHouse();
             }
-            if(scores[0] instanceof Diamonds) {
-                house = ((Diamonds)scores[0]).getHouse();
+            if(scores[3] instanceof Diamonds) {
+                house = ((Diamonds)scores[3]).getHouse();
             }
-            if(scores[0] instanceof Emeralds) {
-                house = ((Emeralds)scores[0]).getHouse();
+            if(scores[3] instanceof Emeralds) {
+                house = ((Emeralds)scores[3]).getHouse();
             }
-            if(scores[0] instanceof Shappires) {
-                house = ((Shappires)scores[0]).getHouse();
+            if(scores[3] instanceof Shappires) {
+                house = ((Shappires)scores[3]).getHouse();
             }
         }
         return house;
@@ -169,7 +185,7 @@ public class HourGlass {
     
     @Override
     public String toString() {
-        return "G/" + this.gryffindor.getValue() + "\t" +
+        return "\tG/" + this.gryffindor.getValue() + "\t" +
                 "R/" + this.ravenclaw.getValue() + "\t" +
                 "H/" + this.hufflepuff.getValue() + "\t" +
                 "S/" + this.slytherin.getValue() + "\t";

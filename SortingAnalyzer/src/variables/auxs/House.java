@@ -1,7 +1,7 @@
 package variables.auxs;
 
 /**
- * Collection for every possible value of Hogwarts Houses plus the Hatstall option.
+ * Collection for every possible value of Hogwarts Houses plus the Hatstall mark.
  * @author SilverSpell187
  * @since 2015-02-11
  * @version 1.0

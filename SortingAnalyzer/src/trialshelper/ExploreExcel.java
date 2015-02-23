@@ -121,24 +121,114 @@ public class ExploreExcel {
             System.out.println("Error " + e.getMessage());
         }
     }
-    
+    /**
+     * Loops through the whole sample applying the Scoring Method provided in
+     * order to score each and every Sorting Sample.
+     * @param scoringMethod A SortingQuiz object containing a full set of Answer
+     * objects with all the related info.
+     */
     public void evaluateEverythingWith(SortingQuiz scoringMethod) {
-        if(!this.samples.isEmpty()) {
-        for(int i=0; i<this.samples.size(); i++) {
-            SortingSample s = this.samples.get(i+1);
-            s.scoreSorting(scoringMethod, s);
-            s.predictHouse();
-            if(s.isMissorted()>1) {
-                System.out.println("Sort#" + (i+1) + " -> Predicted: " + s.getPredicted().toString().toUpperCase() +
-                        " ///------------/// Actual: " + s.getHouse().toString().toUpperCase());
+        try {
+            if(!this.samples.isEmpty()) {
+                for(int i=0; i<this.samples.size(); i++) {
+                    SortingSample s = this.samples.get(i+1);
+                    s.scoreThisWith(scoringMethod);
+                    s.predictHouse();
+                    //Print output
+                    System.out.println("\nSort #" + (i+1) + "\t -> Predicted: " + s.getPredicted().toString().toUpperCase() +
+                            " ///-----------------/// Actual: " + s.getHouse().toString().toUpperCase());
+                    System.out.println(s.toString());
+                    if(s.isHatstall()) {
+                        System.out.println("-> is HATSTALL");
+                    }
+                    System.out.println(s.getScoring().toString());
+                        //End of output
+                }
             }
-        }
+        } catch (NullPointerException e) {
+            System.out.println("An error has occurred: " + e.toString());
         }
     }
     
-    public void testAccuracyOf(SortingQuiz scoringMethod) {
+    public void evaluateMissortingsWith(SortingQuiz scoringMethod) {
+        try {
+            if(!this.samples.isEmpty()) {
+                for(int i=0; i<this.samples.size(); i++) {
+                    SortingSample s = this.samples.get(i+1);
+                    s.scoreThisWith(scoringMethod);
+                    s.predictHouse();
+                    //Print output
+                    if(s.isMissorted() != 0) {
+                        System.out.println("\nSort #" + (i + 1) + "\t -> Predicted: " + s.getPredicted().toString().toUpperCase()
+                                + " ///-----------------/// Actual: " + s.getHouse().toString().toUpperCase());
+                        System.out.println(s.toString());
+                        if (s.isHatstall()) {
+                            System.out.println("-> should be Hatstall");
+                        }
+                        System.out.println(s.getScoring().toString());
+                    }//End of output
+                }
+            }
+        } catch (NullPointerException e) {
+            System.out.println("An error has occurred: " + e.toString());
+        }
+    }
+    
+    public void searchForDuplicates() {
+//        System.out.println("\n//////-----Duplicate Sortings Found:-----//////");
+//        boolean hallados = false;
+//        for (SortingSample z : this.samples.values()) {
+//            for (SortingSample s : sortings) {
+//                if (z.compararCon(s) && z.getID() != s.getID() && !z.isHatstall) {
+//                    System.out.println(z.getID() + "\t" + z.getRespuestas() + "\t" + z.getHouse());
+//                    System.out.println(s.getID() + "\t" + s.getRespuestas() + "\t" + s.getHouse());
+//                    hallados = true;
+//                }
+//            }
+//        }
+//        if(!hallados) {
+//            System.out.println("\tNone found.");
+//        }
+    }
+    
+    public void printSummaryOfAccuracyTestFor(SortingQuiz scoringMethod) {
         System.out.println("//////-----ACCURACY TEST FOR SCORING METHOD:-----//////");
         scoringMethod.printScoringMethodSummary();
+    }
+    /**
+     * This method provides a quick way to analyze the accuracy of an Scoring Method
+     * (SortingQuiz), that is, the accuracy of the weights assigned to each answer.
+     * It proceeds by calculating the total SortingSamples avaliable from Data and
+     * them calculates the total number of Hatstall within them.
+     */
+    public void testAccuracy() {
+        int hatstalls = 0;
+        for(int j=0; j<this.samples.size(); j++) {
+            if(this.samples.get(j+1).isHatstall()) {
+                hatstalls++;
+            }
+        }
+        int contador = 0;
+        int contador2 = 0; //Contador para el isMissorted method
+        for (int i=0; i<this.samples.size(); i++) {
+            if (this.samples.get(i+1).getPredicted().equals(this.samples.get(i+1).getHouse())) {
+                contador++;
+            }
+            if(this.samples.get(i+1).isMissorted()>0) {
+                contador2++;
+            }
+        }
+        double resultado = (contador * 100) / (this.samples.size() - (hatstalls/2));
+        System.out.print("\n****************\n\tACCURACY OUTPUT:");
+        System.out.println("\nFull Sample Size: " + this.samples.size()
+                + "\nTotal Hatstalls Found: " + hatstalls/2
+                + "\nTotal Sorting Samples: " + (this.samples.size() - (hatstalls/2))
+                + "\nCorrectly Predicted Sortings (including Hatstalls): " + contador
+                + "\nTotal Failed (excluding Hatstalls): " + contador2);
+        System.out.println("Total Failed Sortings: "
+                + (this.samples.size() - contador));
+        System.out.println("Scoring Method Fiability: "
+                + resultado + "%");
     }
     
 

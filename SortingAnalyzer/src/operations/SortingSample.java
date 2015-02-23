@@ -62,6 +62,34 @@ public class SortingSample {
     }
     
     /**
+     * Scores all Answers belonging to this particular SortingSample according
+     * to the Scoring Method (SortingQuiz) provided.
+     * @param SortingQuiz Scoring Method containing a collection of full data Answers.
+     * @see SortingQuiz
+     * @return Returns true if all 7 Answers were correctly taken into consideration
+     * and thus weighted and false otherwise.
+     */
+    public boolean scoreThisWith(SortingQuiz q) {
+        boolean succesfullyScored = false;
+        int answrCount = 0;
+        
+        for(int i=1; i<8; i++) {
+            try {
+                Answer a = q.answers.get(this.answers.get(i));
+                this.getScoring().weightAnswer(a);
+                answrCount += 1;
+            } catch (NullPointerException e) {
+            }
+        }
+        
+        if(answrCount == 7) {
+            succesfullyScored = true;
+        }
+        
+        return succesfullyScored;
+    }
+    
+    /**
      * Returns the House in which this person was originally sorted into.
      * @return The House in which the person was sorted into.
      */
@@ -82,7 +110,7 @@ public class SortingSample {
     /**
      * This methods returns true if this object represents a Hatstall sorting and
      * therefore should have an identical twin, save for the assigned House.
-     * @return boolean True if the Sorting is a Hatstall, false if not.
+     * @return boolean True if the Sorting is a Hatstall, false if it's not.
      */
     public boolean isHatstall() {
         return this.isHatstall;
@@ -115,7 +143,7 @@ public class SortingSample {
         if (this.isHatstall) {
             isMissorted = -1;
         } else {
-            if (this.house != this.predicted) {
+            if (this.getHouse() != this.getPredicted()) {
                 isMissorted = 1;
             }
         }
@@ -126,17 +154,13 @@ public class SortingSample {
      * Given a SortingQuiz (Scoring Method) and a Sorting Sample, it runs the
      * weightAnswer method to calculate the final scores predicted by said
      * Scoring Method in every House.
+     * @deprecated Try scoreThisWith() instead.
      * @param SortingQuiz Scoring method according to which the Sample must be
      * scored.
      * @param SortingSample A simple, individual sorting sample to be scored. 
      */
     public void scoreSorting(SortingQuiz scoringMethod, SortingSample s) {
         for(int i=1; i<=s.answers.size(); i++) {
-            System.out.println(s.toString());
-            System.out.println(s.answers.size());
-            System.out.println(s.getAnswerNum(i+1));
-            System.out.println(scoringMethod.answers.get(s.getAnswerNum(i)).toString());
-//            System.out.println(scoringMethod.answers.get(s.getAnswerNum(i)).getClass()); //ERROR EN CÓDIGO (NULL POINTER)!!!!
             HourGlass scores = new HourGlass();
             scores.weightAnswer(scoringMethod.answers.get(s.getAnswerNum(i)));
             System.out.println(scores);
