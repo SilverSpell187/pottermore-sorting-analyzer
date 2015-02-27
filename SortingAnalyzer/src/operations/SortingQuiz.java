@@ -76,6 +76,32 @@ public class SortingQuiz {
         return changeCorrect;
     }
     
+    public void adjustScoringMethod(ExploreExcel data) {
+        for(SortingSample s : data.samples.values()) {
+            if(!s.isHatstall()) {
+                //Variables to pay attention to
+                House actual, predicted;
+                actual = s.getHouse();
+                predicted = s.getPredicted();
+                //If Missorted
+                if(actual != predicted) {
+                    //Calc the difference of the scores and the items it should count for more
+                    double dif = (s.getScoring().getScoreFrom(predicted)) - (s.getScoring().getScoreFrom(actual));
+                    int items = 0;
+                    for(int i=1; i<7; i++) {
+                        if(this.answers.get(s.getAnswerNum(i)).hasWeightFor(actual)) {
+                            items++;
+                        }
+                    }
+                    //Calc and update the Answer weights
+                    double correction = dif/items;
+                        this.answers.get(s.getAnswerNum(3)).updateWeightFor(actual, correction);
+                        this.answers.get(s.getAnswerNum(4)).updateWeightFor(actual, correction);
+                }
+            }
+        }
+    }
+    
     /**
      * Prints a summary of all weights given by every Answer contained within
      * this Quiz object (Scoring Method).

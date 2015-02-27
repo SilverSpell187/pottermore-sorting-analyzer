@@ -1,6 +1,7 @@
 package variables;
 
 import variables.auxs.TipoR;
+import variables.auxs.House;
 
 /**
  * @author SilverSpell187
@@ -105,6 +106,64 @@ public class Answer {
      */
     public int getPlaceWithinQuiz() {
         return this.answer.getQuestionType().getOrder();
+    }
+    
+    /**
+     * Returns the numerical weight value associated with the House provided.
+     * @param House House id whose numerical weight we wish to know.
+     * @return Numerical value, in double format, assigned to the provided House
+     * by this Answer object.
+     */
+    public double getWeightFor(House h) {
+        double score = 0;
+        if(this.gryf.getHouse().equals(h)) {
+            score = this.getGryffindorWeight();
+        }
+        if(this.claw.getHouse().equals(h)) {
+            score = this.getRavenclawWeight();
+        }
+        if(this.puff.getHouse().equals(h)) {
+            score = this.getHufflepuffWeight();
+        }
+        if(this.sly.getHouse().equals(h)) {
+            score = this.getSlytherinWeight();
+        }
+        return score;
+    }
+    /**
+     * Returns true if this Answer object has weight towards the specified House
+     * and false otherwise (i.e. if it gives 0 points to it).
+     * @param House House id whose relation with this Answer we wish to know.
+     * @return Returns true if this Answer object gives a numerical value (weight)
+     * higher or below 0, thus giving points to the specified House, and false
+     * otherwise. Note that false is also the default option.
+     */
+    public boolean hasWeightFor(House h) {
+        boolean hasWeight = false;
+        if(this.getWeightFor(h) != 0) {
+            hasWeight = true;
+        }
+        return hasWeight;
+    }
+    /**
+     * Sets a new Score associated with a specified House, being the new value
+     * the adding of a score to the previous one.
+     * @param House House id whose weight is to be updated.
+     * @param double New numerical weight to be added for the specified House.
+     */
+    public void updateWeightFor(House h, double sc) {
+        if(this.gryf.getHouse().equals(h)) {
+            this.gryf.setValue(this.getGryffindorWeight()+sc);
+        }
+        if(this.claw.getHouse().equals(h)) {
+            this.claw.setValue(this.getRavenclawWeight()+sc);
+        }
+        if(this.puff.getHouse().equals(h)) {
+            this.puff.setValue(this.getHufflepuffWeight()+sc);
+        }
+        if(this.sly.getHouse().equals(h)) {
+            this.sly.setValue(this.getSlytherinWeight()+sc);
+        }
     }
     
     /**

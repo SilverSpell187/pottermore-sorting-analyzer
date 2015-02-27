@@ -134,19 +134,25 @@ public class ExploreExcel {
                     SortingSample s = this.samples.get(i+1);
                     s.scoreThisWith(scoringMethod);
                     s.predictHouse();
-                    //Print output
-                    System.out.println("\nSort #" + (i+1) + "\t -> Predicted: " + s.getPredicted().toString().toUpperCase() +
-                            " ///-----------------/// Actual: " + s.getHouse().toString().toUpperCase());
-                    System.out.println(s.toString());
-                    if(s.isHatstall()) {
-                        System.out.println("-> is HATSTALL");
-                    }
-                    System.out.println(s.getScoring().toString());
-                        //End of output
                 }
             }
         } catch (NullPointerException e) {
             System.out.println("An error has occurred: " + e.toString());
+        }
+    }
+    
+    public void printEverythingEvaluated() {
+        for (int i=0; i<this.samples.size(); i++) {
+            SortingSample s = this.samples.get(i+1);
+            //Print output
+            System.out.println("\nSort #" + (i + 1) + "\t -> Predicted: " + s.getPredicted().toString().toUpperCase()
+                    + " ///-----------------/// Actual: " + s.getHouse().toString().toUpperCase());
+            System.out.println(s.toString());
+            if (s.isHatstall()) {
+                System.out.println("-> is HATSTALL");
+            }
+            System.out.println(s.getScoring().toString());
+            //End of output
         }
     }
     
@@ -229,6 +235,23 @@ public class ExploreExcel {
                 + (this.samples.size() - contador));
         System.out.println("Scoring Method Fiability: "
                 + resultado + "%");
+    }
+    
+    public double getAccuracy() {
+        int hatstalls = 0;
+        for(int j=0; j<this.samples.size(); j++) {
+            if(this.samples.get(j+1).isHatstall()) {
+                hatstalls++;
+            }
+        }
+        int contador = 0;
+        for (int i=0; i<this.samples.size(); i++) {
+            if (this.samples.get(i+1).getPredicted().equals(this.samples.get(i+1).getHouse())) {
+                contador++;
+            }
+        }
+        double resultado = (contador * 100) / (this.samples.size() - (hatstalls/2));
+        return resultado;
     }
     
 

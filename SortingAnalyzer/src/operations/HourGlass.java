@@ -107,6 +107,28 @@ public class HourGlass {
     }
     
     /**
+     * Returns the Score associated to the provided House stored within this object.
+     * @param House The House whose score is asked.
+     * @return double The score linked to that House.
+     */
+    public double getScoreFrom(House h) {
+        double score = -1;
+        if(this.gryffindor.getHouse().equals(h)) {
+            score = this.gryffindor.getValue();
+        }
+        if(this.hufflepuff.getHouse().equals(h)) {
+            score = this.hufflepuff.getValue();
+        }
+        if(this.ravenclaw.getHouse().equals(h)) {
+            score = this.ravenclaw.getValue();
+        }
+        if(this.slytherin.getHouse().equals(h)) {
+            score = this.slytherin.getValue();
+        }
+        return score;
+    }
+    
+    /**
      * Does the "Sorting", ordering all House scores.
      * @return Gems[] Array containing the associated scores ordered.
      */

@@ -24,5 +24,15 @@ public class MainTest {
         //3rd Step: Run any of the avaliable analysis over the full Data recovered
         experiment.evaluateMissortingsWith(quiz);
         experiment.testAccuracy();
+        
+        //AUTOFIX (didn't work)
+//        int loopNum = 0;
+//        do {
+//            experiment.evaluateEverythingWith(quiz);
+//            quiz.adjustScoringMethod(experiment);
+//            loopNum++;
+//            System.out.println(loopNum + " Accuracy: " + experiment.getAccuracy());
+//        } while (experiment.getAccuracy()<90);
+//        quiz.printScoringMethodSummary();
     }
 }
